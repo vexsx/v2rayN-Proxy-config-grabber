@@ -126,9 +126,3 @@ func printHeader() {
 
 	fmt.Print(colorfulHeader)
 }
-
-func printError(err error) {
-	errorMsg := fmt.Sprintf("Error: %s\n", err)
-	colorfulErrorMsg := "\033[1;31m" + errorMsg + "\033[0m"
-	fmt.Print(colorfulErrorMsg)
-}
