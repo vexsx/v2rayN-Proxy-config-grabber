@@ -67,7 +67,10 @@ prog:
 
 	fmt.Println("File saved successfully as", fileName)
 	fmt.Println("Press Enter to exit")
-	fmt.Scanln()
+	_, err = fmt.Scanln()
+	if err != nil {
+		return
+	}
 }
 
 func generateFileName() string {
@@ -80,7 +83,12 @@ func saveFile(url, fileName string) error {
 	if err != nil {
 		return err
 	}
-	defer response.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(response.Body)
 
 	if response.StatusCode != http.StatusOK {
 		return fmt.Errorf("unexpected status code: %d", response.StatusCode)
@@ -90,7 +98,12 @@ func saveFile(url, fileName string) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
 
 	_, err = io.Copy(file, response.Body)
 	if err != nil {
