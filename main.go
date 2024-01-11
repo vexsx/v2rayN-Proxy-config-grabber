@@ -55,7 +55,7 @@ prog:
 	case 5:
 		url = vlessURL
 	case 6:
-		url = vmessURL
+		url = vmssURL
 	}
 
 	fileName = generateFileName()
